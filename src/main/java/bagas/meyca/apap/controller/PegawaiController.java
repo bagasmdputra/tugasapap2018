@@ -55,6 +55,13 @@ public class PegawaiController {
 //	Add Operation
 	@RequestMapping(value="/pegawai/tambah", method=RequestMethod.GET)
 	private String tambah(Model model) {
+
+		return "pegawai/addPegawai";
+	}
+	
+//	Update Operation
+	@RequestMapping(value="/pegawai/ubah", method=RequestMethod.GET)
+	private String ubah(@RequestParam(value="nip") String nip, Model model) {
 		List<Jabatan> jabatans = jabatanService.getAll();
 		List<Provinsi> provinsis = provinsiService.getAll();
 		List<Instansi> instansis = instansiService.getAll();
@@ -62,7 +69,7 @@ public class PegawaiController {
 		model.addAttribute(jabatans);
 		model.addAttribute(provinsis);
 		model.addAttribute(instansis);
-		return "pegawai/addPegawai";
+		return "pegawai/updatePegawai";
 	}
 	
 //	Extra

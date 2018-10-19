@@ -19,21 +19,21 @@ public class PegawaiController {
 	@RequestMapping(value = "/pegawai/view", method=RequestMethod.GET)
 	private String viewPegawai(@RequestParam(value="NIP") String NIP, Model model) {
 		
-		return "pegawai";
+		return "pegawai/pegawai";
 	}
 	
 //	Add Operation
 	@RequestMapping(value="/pegawai/tambah", method=RequestMethod.GET)
 	private String tambah(Model model) {
 		
-		return "addPegawai";
+		return "pegawai/addPegawai";
 	}
 	
 //	Extra
 	@RequestMapping(value="/pegawai/termuda-tertua", method=RequestMethod.GET)
 	private String lihatPegawaiTer(@RequestParam(value="idInstansi") Long idInstansi, Model model) {
 		
-		return "youngest-oldest";
+		return "pegawai/youngest-oldest";
 	}
 	
 	@RequestMapping(value="/pegawai/cari", method=RequestMethod.GET)
@@ -41,6 +41,6 @@ public class PegawaiController {
 			@RequestParam(value="idInstansi", required=false, defaultValue ="0") Long id_instansi,
 			@RequestParam(value="idJabatan", required=false, defaultValue ="0") Long id_jabatan, Model model) {
 			
-			return "searchPegawai";
+		return "pegawai/searchPegawai";
 	}
 }

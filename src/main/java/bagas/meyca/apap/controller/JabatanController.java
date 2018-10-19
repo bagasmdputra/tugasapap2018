@@ -18,20 +18,20 @@ public class JabatanController {
 	@RequestMapping(value = "/jabatan/view", method=RequestMethod.GET)
 	private String viewJabatan(@RequestParam(value="id") Long id, Model model) {
 
-		return "jabatan";
+		return "jabatan/jabatan";
 	}
 	
 	@RequestMapping(value="/jabatan/viewall", method=RequestMethod.GET)
 	public String viewAll(Model model) {
 
-		return "allJabatan";
+		return "jabatan/allJabatan";
 	}
 	
 //	Add Operation
 	@RequestMapping(value="/jabatan/tambah", method=RequestMethod.GET)
 	private String tambah(Model model) {
 
-		return "addJabatan";
+		return "jabatan/addJabatan";
 	}
 	
 	@RequestMapping(value="/jabatan/tambah", method=RequestMethod.POST)
@@ -44,7 +44,7 @@ public class JabatanController {
 	@RequestMapping(value = "/jabatan/ubah/{id}", method=RequestMethod.GET)
 	private String ubahJabatan(@PathVariable(value="id") Long id, Model model) {
 
-		return "editJabatan";
+		return "jabatan/editJabatan";
 	}
 	
 	@RequestMapping(value="/jabatan/ubah", method=RequestMethod.POST)
@@ -57,13 +57,13 @@ public class JabatanController {
 	@RequestMapping(value="/jabatan/hapus/{id}", method=RequestMethod.GET)
 	public String deletePilot(@PathVariable(value="id") Long id, Model model) {
 
-		return "deleteJabatan";
+		return "jabatan/deleteJabatan";
 	}
 	
 //	Extra
 	@RequestMapping(value="/jabatan/sebaran", method=RequestMethod.GET)
 	public String sebaranKaryawan(Model model) {
 
-		return "statPegawai";
+		return "jabatan/statPegawai";
 	}
 }

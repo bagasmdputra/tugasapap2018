@@ -1,13 +1,31 @@
 package bagas.meyca.apap.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import bagas.meyca.apap.service.InstansiService;
+import bagas.meyca.apap.service.JabatanService;
+import bagas.meyca.apap.service.PegawaiService;
+import bagas.meyca.apap.service.ProvinsiService;
+
 @Controller
 public class PegawaiController {
+	
+	@Autowired
+	private PegawaiService pegawaiService;
+	
+	@Autowired
+	private ProvinsiService provinsiService;
+	
+	@Autowired
+	private JabatanService jabatanService;
+	
+	@Autowired
+	private InstansiService instansiService;
 	
 	@RequestMapping("/")
 	private String home(Model model) {

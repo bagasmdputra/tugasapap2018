@@ -4,6 +4,25 @@
 <body>
 <div th:replace="layout/header :: header">&nbsp;</div>
 <div class="container">
+<div class="row text-center justify-content-md-center ">
+	<div class="col-md-12">
+			<h1> Sistem Informasi Kepegawaian</h1>
+		</div>
+	<div class="col-lg-4 col-md-6 col-xs-12 card">
+
+	  <div class="card-body">
+	    <h5 class="card-title">Lihat Data Pegawai berdasarkan NIP</h5>
+	    <form th:action="@{/pegawai}">
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Masukkan Nomor Induk Pegawai</label>
+		   	 <input type="text" class="form-control" id="nip-input" aria-describedby="nipHelp" placeholder="Masukkan NIP" name="nip">
+		   	 <small id="nipHelp" class="form-text text-muted">Masukkan NIP yang tertera pada kartu keanggotaan Anda.</small>
+		 	 </div>
+		  	<button type="submit" class="btn btn-primary">Lihat</button>
+			  </form>
+		  </div>
+		</div>
+	</div>
 </div>
 </body>
 <head th:replace="layout/footer :: footer"></head>

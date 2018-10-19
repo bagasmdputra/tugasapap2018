@@ -1,7 +1,9 @@
 package bagas.meyca.apap.entity;
 
 import java.sql.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -58,6 +61,19 @@ public class Pegawai {
 	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	@JsonIgnore
 	private Instansi instansi;
+
+	@OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<JabatanPegawai> listJabatan;
+	
+
+
+	public List<JabatanPegawai> getListJabatan() {
+		return listJabatan;
+	}
+
+	public void setListJabatan(List<JabatanPegawai> listJabatan) {
+		this.listJabatan = listJabatan;
+	}
 
 	public Long getId() {
 		return id;

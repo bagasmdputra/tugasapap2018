@@ -2,9 +2,14 @@ package bagas.meyca.apap.implementation;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import bagas.meyca.apap.entity.Provinsi;
 import bagas.meyca.apap.service.ProvinsiService;
 
+@Service
+@Transactional
 public class ProvinsiImplementation implements ProvinsiService {
 
 	@Override

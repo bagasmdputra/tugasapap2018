@@ -12,7 +12,7 @@ import bagas.meyca.apap.entity.Jabatan;
 
 
 @Controller
-public class JabatanController {
+public class JabatanController { 
 
 //	Read Operation
 	@RequestMapping(value = "/jabatan/view", method=RequestMethod.GET)

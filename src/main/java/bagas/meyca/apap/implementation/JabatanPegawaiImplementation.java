@@ -2,44 +2,49 @@ package bagas.meyca.apap.implementation;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import bagas.meyca.apap.entity.JabatanPegawai;
+import bagas.meyca.apap.repository.JabatanPegawaiRepository;
 import bagas.meyca.apap.service.JabatanPegawaiService;
 
 @Service
 @Transactional
 public class JabatanPegawaiImplementation implements JabatanPegawaiService {
 
+	@Autowired
+	private JabatanPegawaiRepository jabatanPegawaiDB;
+	
 	@Override
 	public JabatanPegawai get(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return jabatanPegawaiDB.getOne(id);
 	}
 
 	@Override
 	public List<JabatanPegawai> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return jabatanPegawaiDB.findAll();
 	}
 
 	@Override
 	public JabatanPegawai add(JabatanPegawai object) {
-		// TODO Auto-generated method stub
-		return null;
+		return jabatanPegawaiDB.save(object);
 	}
 
 	@Override
 	public JabatanPegawai update(JabatanPegawai object) {
-		// TODO Auto-generated method stub
-		return null;
+		JabatanPegawai jabatanPegawai = get(object.getId());
+		jabatanPegawai.setJabatan(object.getJabatan());
+		jabatanPegawai.setPegawai(object.getPegawai());
+		return jabatanPegawaiDB.save(jabatanPegawai);
 	}
 
 	@Override
 	public JabatanPegawai delete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		JabatanPegawai jabatanPegawai = get(id);
+		jabatanPegawaiDB.delete(jabatanPegawai);
+		return jabatanPegawai;
 	}
 	
 	

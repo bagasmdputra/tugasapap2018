@@ -34,10 +34,7 @@ public class JabatanPegawaiImplementation implements JabatanPegawaiService {
 
 	@Override
 	public JabatanPegawai update(JabatanPegawai object) {
-		JabatanPegawai jabatanPegawai = get(object.getId());
-		jabatanPegawai.setJabatan(object.getJabatan());
-		jabatanPegawai.setPegawai(object.getPegawai());
-		return jabatanPegawaiDB.save(jabatanPegawai);
+		return jabatanPegawaiDB.save(object);
 	}
 
 	@Override

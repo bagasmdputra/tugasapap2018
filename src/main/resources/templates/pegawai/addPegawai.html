@@ -39,31 +39,34 @@
 
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="inputState">Provinsi</label>
-              <select id="inputState" class="form-control">
-                <option selected>Pilih...</option>
-                <option>...</option>
+              <label for="provinsi">Provinsi</label>
+              <select  id="provinsi" name="provinsi" class="form-control">
+                <option selected disabled>Pilih...</option>
+                <option th:each="provinsi : ${provinsis}" 
+					          th:value="${provinsi.getId()}" 
+					          th:text="${provinsi.getNama()}">...</option>
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="inputState">Nama Instansi</label>
-              <select id="inputState" class="form-control" name="instansi">
-                <option selected>Pilih...</option>
-                <option>...</option>
+              <label for="instansi">Nama Instansi</label>
+              <select class="form-control" id="instansi" name="instansi">
+                <option selected disabled>Pilih...</option>
+                <option >...</option>
               </select>
             </div>
-
           </div>
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label for="inputState">Jabatan</label>
-              <select id="inputState" class="form-control" name="jabatan">
-                <option selected>Pilih...</option>
-                <option>...</option>
+              <label for="jabatan">Jabatan</label>
+              <select id="jabatan" class="form-control" name="jabatan">
+                <option selected disabled>Pilih...</option>
+                <option th:each="jabatan : ${jabatans}" 
+					          th:value="${jabatan.getId()}" 
+					          th:text="${jabatan.getNama()}">...</option>
               </select>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Sign in</button>
+          <button type="submit" class="btn btn-primary">Tambah</button>
         </form>
 
       </div>
@@ -73,5 +76,37 @@
 </body>
 
 <head th:replace="layout/footer :: footer"></head>
-
+ <script type="text/javascript">
+	$(document).ready(function(){
+		console.log("hey")
+		$('#provinsi').change(function() {
+			valueProv = $(this).val();
+			console.log(valueProv)
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:8080/pegawai/tambah/instansi?provinsi=",
+				data: {
+					'provinsiId' : valueProv
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data);
+					getIns = '';
+					var size = data.length;
+				
+					for (var i = 0; i<size; i++) {
+						getIns+='<option value="'+data[i].id+'">'+data[i].nama+'</option>';
+						console.log(data[i]);
+						console.log(data[i].nama)
+					}
+					console.log(getIns);
+					$('#instansi').append(getIns);
+				},
+				error: function(rs,e) {
+					alert(rs.responseText)
+				}
+			})
+		})
+	});
+</script>
 </html>

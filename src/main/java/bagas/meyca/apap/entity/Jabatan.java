@@ -9,7 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,15 +37,20 @@ public class Jabatan {
 	@Column(name = "gaji_pokok", nullable=false)
 	private Double gajiPokok;
 
-	@OneToMany(mappedBy = "jabatan", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<JabatanPegawai> listPegawai;
+	@ManyToMany(fetch = FetchType.EAGER,
+			cascade = {
+					CascadeType.PERSIST,
+					CascadeType.MERGE
+			},
+			mappedBy = "listJabatan")
+	private List<Pegawai> listPegawai;
 	
 
-	public List<JabatanPegawai> getListPegawai() {
+	public List<Pegawai> getListPegawai() {
 		return listPegawai;
 	}
 
-	public void setListPegawai(List<JabatanPegawai> listPegawai) {
+	public void setListPegawai(List<Pegawai> listPegawai) {
 		this.listPegawai = listPegawai;
 	}
 

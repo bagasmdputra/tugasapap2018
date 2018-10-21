@@ -1,5 +1,6 @@
 package bagas.meyca.apap.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import bagas.meyca.apap.entity.Instansi;
 import bagas.meyca.apap.entity.Jabatan;
-import bagas.meyca.apap.entity.JabatanPegawai;
 import bagas.meyca.apap.entity.Pegawai;
 import bagas.meyca.apap.entity.Provinsi;
 import bagas.meyca.apap.service.InstansiService;
@@ -48,8 +49,7 @@ public class PegawaiController {
 		if (pegawai.equals(null)) {
 			return "redirect:/";
 		}
-		String gaji = "Rp " + String.format("%.2f", this.calculateGaji(pegawai.getListJabatan()));
-		model.addAttribute("gaji",gaji);
+
 		model.addAttribute("pegawai",pegawai);
 		return "pegawai/pegawai";
 	}
@@ -57,9 +57,40 @@ public class PegawaiController {
 //	Add Operation
 	@RequestMapping(value="/pegawai/tambah", method=RequestMethod.GET)
 	private String tambah(@ModelAttribute Pegawai pegawai, Model model, BindingResult bindingResult) {
+		List<Jabatan> jabatans = jabatanService.getAll();
+		List<Provinsi> provinsis = provinsiService.getAll();
 		
 		model.addAttribute("title", "Tambah Pegawai");
+		model.addAttribute("jabatans", jabatans);
+		model.addAttribute("provinsis", provinsis);
+		
 		return "pegawai/addPegawai";
+	}
+	
+	@RequestMapping(value="/pegawai/tambah",method = RequestMethod.POST, params= {"addRow"})
+	private String addRow (@ModelAttribute Pegawai pegawai, Model model, BindingResult bindingResult) {
+		if (pegawai.getListJabatan() == null) {
+			pegawai.setListJabatan(new ArrayList<Jabatan>());
+		}
+		System.out.println(pegawai.getListJabatan().size());
+		pegawai.getListJabatan().add(new Jabatan());
+		
+		List<Jabatan> jabatans = jabatanService.getAll();
+		List<Provinsi> provinsis = provinsiService.getAll();
+		
+		model.addAttribute(provinsis);
+		model.addAttribute(pegawai);
+		model.addAttribute(jabatans);
+		model.addAttribute("title", "Tambah Pegawai");
+		
+		return "TambahPegawai";
+	}
+	
+	@RequestMapping(value = "/pegawai/tambah/instansi",method = RequestMethod.GET)
+	private @ResponseBody List<Instansi> cekInstansi(@RequestParam(value="provinsiId") long id) {
+		Provinsi provinsi = provinsiService.get(id);
+		
+		return provinsi.getListInstansi();
 	}
 	
 //	Update Operation
@@ -90,12 +121,5 @@ public class PegawaiController {
 		return "pegawai/searchPegawai";
 	}
 	
-	private double calculateGaji(List<JabatanPegawai> listJabatan) {
-		double max = 0;
-		for (JabatanPegawai jabatan : listJabatan) {
-			double present = jabatan.getJabatan().getGajiPokok() ;
-			max = present > max? present : max; 
-		}
-		return max;
-	}
+	
 }

@@ -36,15 +36,8 @@ public class PegawaiImplementation implements PegawaiService{
 
 	@Override
 	public Pegawai update(Pegawai object) {
-		Pegawai pegawai = get(object.getId());
-		pegawai.setNama(object.getNama());
-		pegawai.setInstansi(object.getInstansi());
-		pegawai.setListJabatan(object.getListJabatan());
-		pegawai.setTahunMasuk(object.getTahunMasuk());
-		pegawai.setTanggalLahir(object.getTanggalLahir());
-		pegawai.setTempatLahir(object.getTempatLahir());
-		pegawai.setNip(generateNip(object));
-		return pegawaiDB.save(pegawai);
+		object.setNip(generateNip(object));
+		return pegawaiDB.save(object);
 	}
 
 	@Override

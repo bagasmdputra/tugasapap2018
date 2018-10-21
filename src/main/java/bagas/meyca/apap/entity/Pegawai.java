@@ -11,8 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -62,16 +63,34 @@ public class Pegawai {
 	@JsonIgnore
 	private Instansi instansi;
 
-	@OneToMany(mappedBy = "pegawai", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<JabatanPegawai> listJabatan;
+	@ManyToMany(fetch = FetchType.EAGER,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            })
+    @JoinTable(name = "jabatan_pegawai",
+            joinColumns = { @JoinColumn(name = "id_pegawai") },
+            inverseJoinColumns = { @JoinColumn(name = "id_jabatan") })
+	private List<Jabatan> listJabatan;
 	
-
-
-	public List<JabatanPegawai> getListJabatan() {
+	private double calculateGaji(List<Jabatan> listJabatan) {
+		double max = 0;
+		for (Jabatan jabatan : listJabatan) {
+			double present = jabatan.getGajiPokok() ;
+			max = present > max? present : max; 
+		}
+		return max;
+	}
+	
+	public String getGaji() {
+		return "Rp " + String.format("%.2f", calculateGaji(listJabatan));
+	}
+	
+	public List<Jabatan> getListJabatan() {
 		return listJabatan;
 	}
 
-	public void setListJabatan(List<JabatanPegawai> listJabatan) {
+	public void setListJabatan(List<Jabatan> listJabatan) {
 		this.listJabatan = listJabatan;
 	}
 

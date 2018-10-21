@@ -34,11 +34,7 @@ public class InstansiImplementation implements InstansiService {
 
 	@Override
 	public Instansi update(Instansi object) {
-		Instansi instansi = get(object.getId());
-		instansi.setNama(object.getNama());
-		instansi.setDeskripsi(object.getDeskripsi());
-		instansi.setProvinsi(object.getProvinsi());
-		return instansiDB.save(instansi);
+		return instansiDB.save(object);
 	}
 
 	@Override

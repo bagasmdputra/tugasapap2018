@@ -34,12 +34,7 @@ public class JabatanImplementation implements JabatanService {
 
 	@Override
 	public Jabatan update(Jabatan object) {
-		Jabatan jabatan = get(object.getId());
-		jabatan.setNama(object.getNama());
-		jabatan.setDeskripsi(object.getDeskripsi());
-		jabatan.setGajiPokok(object.getGajiPokok());
-		jabatan.setListPegawai(object.getListPegawai());
-		return jabatanDB.save(jabatan);
+		return jabatanDB.save(object);
 	}
 
 	@Override

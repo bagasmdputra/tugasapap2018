@@ -34,10 +34,7 @@ public class ProvinsiImplementation implements ProvinsiService {
 
 	@Override
 	public Provinsi update(Provinsi object) {
-		Provinsi provinsi = get(object.getId());
-		provinsi.setNama(object.getNama());
-		provinsi.setTunjangan(object.getTunjangan());
-		return provinsiDB.save(provinsi);
+		return provinsiDB.save(object);
 	}
 
 	@Override
